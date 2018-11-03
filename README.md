@@ -1,7 +1,8 @@
 Online library using Symfony 4
 ========================
 
-This library
+This online library contains a public home page to display books
+A Basic Authentification secure area for creating/updating and deleting books and authors
 
 
 Requirements
