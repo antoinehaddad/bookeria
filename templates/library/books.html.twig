@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="books">
+        {% for book in books %}
+        <div class="book">
+            <h2>{{ book.title }}</h2>
+            <div class="metadata">
+                Auteur : {{ book.author.FirstName}} {{ book.author.LastName}} ({{ book.author.nationality | country_name}})
+                {% if app.user %} 
+                <a href="{{ path('author_edit', {'id':book.author.id}) }}" class="btn" role="button">Modifier l'auteur</a>
+                <a href="{{ path('author_delete', {'id':book.author.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ? Cette action va supprimer également tous ses livres.',  'Suppression de {{ book.author.FirstName}} {{ book.author.LastName}}')" class="btn" role="button">Supprimer l'auteur</a>
+                {% endif %}
+            </div>
+
+            <div class="metadata">ISBN : {{ book.isbn}}</div>
+            <p>
+                <img src="{{ asset('uploads/covers/' ~ book.coverPicture) }}" alt="{{ book.title}}" width="150">
+            </p>
+            <p class="metadata">
+            {% if current_path != "home" %}
+             <a href="{{ path('home')}}" class="btn" role="button">Accueil</a>
+             -
+            {% endif %}
+             {% for tag in book.tags %}
+               <a href="{{ path('books_show_by_tag', {'id':tag.id})}}" class="btn" role="button">{{ tag.name}}</a>
+            {% endfor %}
+            </p>
+            {% if app.user %} 
+            <p>
+                <a href="{{ path('book_edit', {'id':book.id})}}" class="btn btn-secondary" role="button">Modifier</a>
+                <a href="{{ path('book_delete', {'id':book.id})}}" class="btn btn-secondary" role="button">Supprimer</a>
+            </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+    <p>
+        <a href="{{ path('book_new')}}" class="btn btn-success float-left" role="button">Ajouter un livre</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<book>
+    <h2>{{ book.title }}</h2>
+    <div class="metadata">{{book.author.firstname}} {{book.author.lastname}}</div>
+    <div class="metadata">{{book.isbn}}</div>
+    <div class="content">
+        <img src="{{ asset('uploads/covers/' ~ book.coverPicture) }}" alt="{{ book.title}}">
+    </div>
+</book>
+{% endblock %}

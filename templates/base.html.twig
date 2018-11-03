@@ -1,12 +1,49 @@
+{% set current_path = app.request.get('_route') %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Librairie bookeria{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css')}}">
         {% block stylesheets %}{% endblock %}
+        {% block javascripts %} 
+            <script language="javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+        {% endblock %} 
     </head>
+
     <body>
+       {% if app.user %} 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarColor01" style="">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% if current_path == "books_show" %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('books_show')}}">Livres <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {% if current_path == "authors_show" %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('authors_show')}}">Auteurs</a>
+                </li>
+                
+                 {% if app.user %} 
+                <li class="nav-item {% if current_path == "book_new" %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('book_new')}}">Ajouter un livre</a>
+                </li>
+                <li class="nav-item {% if current_path == "author_new" %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('author_new')}}">Ajouter un auteur</a>
+                </li>
+                {% endif %}
+                </ul>
+            </div>
+            </nav>
+        {% endif %}
+
+        <div class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        </div>
+        
     </body>
+    
 </html>

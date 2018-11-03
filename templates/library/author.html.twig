@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1> 
+     {% if editMode %}
+        Modification d'un auteur
+    {% else %}
+         Ajouter un auteur
+    {% endif %}
+   </h1>
+    {{ form_start(formAuthor) }}
+
+    {{ form_row(formAuthor.firstName,  {'label': "Prénom", 'attr': {'placeholder':"Veuillez saisir le prénom (ex: Victor)"}}) }}
+    {{ form_row(formAuthor.lastName, {'label': "Nom", 'attr': {'placeholder':"Veuillez saisir le nom (ex: Hugo)"}}) }}
+    {{ form_row(formAuthor.nationality, {'label': "Nationalité"}) }}
+    <button type="submit" class="btn btn-success float-right">
+        {% if editMode %}
+            Enregistrer
+        {% else %}
+           Ajouter l'auteur
+        {% endif %}
+    </button>
+    {{ form_end(formAuthor) }}
+{% endblock %}

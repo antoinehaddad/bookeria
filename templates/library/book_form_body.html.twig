@@ -1,0 +1,31 @@
+    
+    {% if editMode %}
+        <h1> Modifier le livre</h1>
+    {% else %}
+        <h1> Ajouter un livre</h1>
+    {% endif %}
+    {{ form_start(formBook, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_errors(formBook) }}
+    {{ form_row(formBook.title, {'label': "Titre du livre", 'attr': {'placeholder':"Veuillez saisir le titre du livre..."}}) }}
+    {{ form_row(formBook.author, {'label': "Auteur"}) }}
+    {{ form_row(formBook.coverPicture, {'label': "Photo de couverture", 'attr': {'placeholder':"Veuillez séléctionner une couverture..."}}) }}
+    {{ form_row(formBook.isbn, {'label': "ISBN", 'attr': {'placeholder':"Veuillez saisir l'ISBN"}}) }}
+    {{ form_row(formBook.tags, {'label': "Tags", 'attr': {'placeholder':"Tags (ex : Poésie,Drôle,Intime)"}}) }}
+    <button type="submit" class="btn btn-success float-right">
+    {% if editMode %}
+        Enregister
+       {% else %}
+         Ajouter le livre
+    {% endif %}     
+       
+    </button>
+    {{ form_end(formBook) }}
+
+    <script>
+        $('#book_coverPicture_name').on('change',function(e){
+            if(e.target.files!=null && e.target.files[0]!=undefined){
+                var fileName = e.target.files[0].name;
+                $(this).next('.custom-file-label').html(fileName);
+            }
+        })
+    </script>

@@ -1,0 +1,28 @@
+[author] first name, last name and [nationality]
+author show 
+author create => author form [check exists=> firstName, lastName ]
+author update => author form
+author delete
+
+[book] title, [author], cover picture, ISBN, creation date, [tags]
+book show
+book create => book form
+book update => book form
+book delete
+
+homepage display authors and books
+
+security
+forms restrict access 
+Symfony\Component\Security\Core\User\UserInterface
+User
+
+console display authors
+console display books
+
+REST API endpoint 
+GET all books before or after a given creation date and / or from authors with a given nationality. 
+JSON
+apiKey
+
+Read Me.txt

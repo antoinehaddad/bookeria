@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="authors">
+        {% for author in authors %}
+        <author>
+            <h2>{{ author.FirstName}} {{ author.LastName}}</h2>
+            <div class="metadata">{{ author.nationality | country_name}} </div>
+            <p>
+                <a href="{{ path('author_edit', {'id':author.id}) }}" class="btn" role="button">Modifier l'auteur</a>
+                <a href="{{ path('author_delete', {'id':author.id}) }}" class="btn" role="button">Supprimer l'auteur</a>
+            </p>
+        </author>
+        {% endfor %}
+    </section>
+{% endblock %}
