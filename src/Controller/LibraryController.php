@@ -77,7 +77,7 @@ class LibraryController extends AbstractController
 
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
-        dump($form);
+      
         if($form->isSubmitted() && $form->isValid()){
             if(!$book->getId()){
                 $book->setCreatedAt(new \DateTime());
