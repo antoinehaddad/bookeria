@@ -1,6 +1,0 @@
-Git
-PHP 7.X, (ext Curl)
-Composer
-
-Install 
-composer create-project symfony/website-skeleton bookeria
