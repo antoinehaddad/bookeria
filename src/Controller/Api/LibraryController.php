@@ -34,7 +34,7 @@ class LibraryController extends AbstractController
 
     }
 
-    // TODO: custom api errors return
+    // TODO: return json custom errors
     /**
     * @Route("/api/books_show", name="api_books_show")
     */

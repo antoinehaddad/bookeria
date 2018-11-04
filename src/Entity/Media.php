@@ -68,4 +68,23 @@ class Media
     {
         return "/public/uploads/covers/".$this->name;
     }
+
+    /**
+    * For security reason :  
+    * It is not possible to put a default value on input file
+    * Because it is for user to select file
+    * This is why we add this property to transport the file name when editing form
+     */ 
+    private $nameBag;
+    public function getNameBag()
+    {
+        return $this->nameBag;
+    }
+
+    public function setNameBag($nameBag)
+    {
+        $this->nameBag = $nameBag;
+
+        return $this;
+    }
 }

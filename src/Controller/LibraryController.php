@@ -54,9 +54,13 @@ class LibraryController extends AbstractController
     * @Route("/book/{id}/edit", name="book_edit")
     */
     public function book(Book $book=null, Request $request, ObjectManager $manager){
+        
+
         if($book){
             $coverPicture = $book->getCoverPicture();
             if (!($coverPicture->getName() instanceof UploadedFile)) {
+                $coverPicture->setNameBag($coverPicture->getName());
+                
                 $fileName = $this->getParameter('covers_directory')."/".$coverPicture->getName();
                 $fileSystem = new Filesystem();
                 if($fileSystem->exists($fileName)){
@@ -66,6 +70,7 @@ class LibraryController extends AbstractController
                     $file  = null;
                 }
                 $coverPicture->setName($file);
+              
                 $book->setCoverPicture($coverPicture);
             }
         }
@@ -73,29 +78,33 @@ class LibraryController extends AbstractController
             $book = new Book();
         }
 
-       
-
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
       
         if($form->isSubmitted() && $form->isValid()){
-            if(!$book->getId()){
-                $book->setCreatedAt(new \DateTime());
-            }
-            $coverPicture = $book->getCoverPicture();
-            if ($coverPicture->getName() instanceof UploadedFile) {
+                if(!$book->getId()){
+                    $book->setCreatedAt(new \DateTime());
+                }
+                $coverPicture = $book->getCoverPicture();
                 if($coverPicture->getName()!=null){
                     $file = $coverPicture->getName();
                     $fileName = md5(uniqid()).'.'.$file->guessExtension();
                     $file->move($this->getParameter('covers_directory'), $fileName);
                     $coverPicture->setName($fileName);
                 }
-            }
+                else{
+                    $coverPicture->setName($coverPicture->getNameBag());
+                }
+            
+            
+                dump($book);
+                dump($request);
 
-            $manager->persist($book);
-            $manager->flush();
+                $manager->persist($book);
+                $manager->flush();
+        
 
-            return $this->redirectToRoute('books_show', ['id'=>$book->getId()]);
+                return $this->redirectToRoute('books_show', ['id'=>$book->getId()]);
         }
      
         return $this->render('library/book_form.html.twig', ['formBook'=>$form->createView(), 'editMode'=>$book->getId()!==null]);
